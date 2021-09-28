@@ -984,12 +984,12 @@ void ec_fsm_foe_state_data_read_data(
         // no more data fits into the delivered buffer
         // ... wait for new read request
         EC_SLAVE_ERR(slave, "Data do not fit in receive buffer!\n");
-        printk(KERN_CONT "  rx_buffer_size = %d\n", fsm->rx_buffer_size);
-        printk(KERN_CONT "rx_buffer_offset = %d\n", fsm->rx_buffer_offset);
+        printk(KERN_CONT "  rx_buffer_size = %d\n", fsm->buffer_size);
+        printk(KERN_CONT "rx_buffer_offset = %d\n", fsm->buffer_offset);
         printk(KERN_CONT "        rec_size = %zd\n", rec_size);
         printk(KERN_CONT " rx_mailbox_size = %d\n",
                 slave->configured_rx_mailbox_size);
-        printk(KERN_CONT "  rx_last_packet = %d\n", fsm->rx_last_packet);
+        printk(KERN_CONT "  rx_last_packet = %d\n", fsm->last_packet);
         fsm->request->result = FOE_READY;
      	fsm->request->data_size = fsm->buffer_offset;
         ec_foe_set_rx_error(fsm, FOE_READ_OVER_ERROR);

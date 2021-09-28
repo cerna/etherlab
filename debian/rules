@@ -14,7 +14,11 @@ endif
 CONFFLAGS += --disable-eoe --enable-sii-assign
 
 ifeq ($(DEB_HOST_ARCH_OS),linux)
-	CONFFLAGS += --enable-kernel --enable-generic --enable-ccat --disable-igb --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e --enable-hrtimer --enable-rtmutex
+	CONFFLAGS += --enable-kernel --enable-generic \
+		--enable-ccat --disable-igb --disable-8139too \
+		--disable-e100 --disable-e1000 --disable-e1000e \
+		--enable-hrtimer --enable-rtmutex \
+		--with-systemdsystemunitdir=systemd
 endif
 
 default:
@@ -39,7 +43,7 @@ override_dh_missing:
 	dh_missing --fail-missing
 
 override_dh_installsystemd:
-	mv debian/tmp/usr/lib/${DEB_HOST_GNU_TYPE}/systemd/system/ethercat.service debian/etherlabmaster-dkms.ethercat.service
+	mv debian/tmpsystemd/ethercat.service debian/etherlabmaster-dkms.ethercat.service
 	dh_installsystemd --name=ethercat
 
 override_dh_install:

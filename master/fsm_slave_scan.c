@@ -1285,7 +1285,7 @@ void ec_fsm_slave_scan_state_sii_parse(
         if (slave->sii_image->sii.mailbox_protocols & ~all) {
             EC_SLAVE_DBG(slave, 1, "Slave announces to support unknown"
                     " mailbox protocols 0x%04X.",
-                    slave->sii.mailbox_protocols & ~all);
+                    slave->sii_image->sii.mailbox_protocols & ~all);
         }
     }
     else {
@@ -1576,7 +1576,7 @@ void ec_fsm_slave_scan_state_sync(
 
     if (rx_size == 0xffff) {
         fsm->state = ec_fsm_slave_scan_state_error;
-        slave->sii.mailbox_protocols = 0x0000;
+        slave->sii_image->sii.mailbox_protocols = 0x0000;
         EC_SLAVE_ERR(slave, "Invalid RX mailbox size (%u) configured."
                 " Disabling mailbox communication.", rx_size);
         return;
@@ -1584,7 +1584,7 @@ void ec_fsm_slave_scan_state_sync(
 
     if (tx_size == 0xffff) {
         fsm->state = ec_fsm_slave_scan_state_error;
-        slave->sii.mailbox_protocols = 0x0000;
+        slave->sii_image->sii.mailbox_protocols = 0x0000;
         EC_SLAVE_ERR(slave, "Invalid TX mailbox size (%u) configured."
                 " Disabling mailbox communication.", tx_size);
         return;
